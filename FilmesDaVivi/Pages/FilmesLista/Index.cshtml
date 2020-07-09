@@ -1,0 +1,54 @@
+﻿@page
+@model FilmesDaVivi.Pages.FilmesLista.IndexModel
+
+<br/>
+
+<div class="container row p-0 m-0">
+    <div class="col-9">
+        <h2 class="text-dark">Lista de Filmes</h2>
+    </div>
+    <div class="col-3">
+        <a asp-page="Create" class="btn btn-info form-control">Adicionar Novo Filme</a>
+    </div>
+
+    <div class="col-12 border p-3 mt-3">
+        <form method="post">
+            @if (Model.Filmes.Count() > 0)
+            {
+                <table class="table table-striped border">
+                    <tr class="table-secondary">
+                        <th>
+                            <label asp-for="Filmes.FirstOrDefault().Titulo"></label>
+                        </th>
+                        <th>
+                            <label asp-for="Filmes.FirstOrDefault().Genero"></label>
+                        </th>
+                        <th>
+
+                        </th>
+                    </tr>
+                    @foreach(var item in Model.Filmes)
+                    {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(m => item.Titulo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.Genero)
+                    </td>
+                    <td>
+                        <button asp-page-handler="Delete" asp-route-id="@item.Id" onclick="return confirm('Tem certeza de que quer excluir?')" class="btn btn-danger btn-sm">Excluir</button>
+                        <a asp-page="Edit" asp-route-id="@item.Id" class="btn btn-success btn-sm text-white">Editar</a>
+                    </td>
+                </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <p>Não Existem Filmes Cadastrados!</p>
+            }
+        </form>
+    </div>
+</div>
+
